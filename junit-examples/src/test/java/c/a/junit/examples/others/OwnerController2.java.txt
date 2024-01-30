@@ -1,0 +1,71 @@
+package org.springframework.samples.petclinic.owner;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledInNativeImage;
+import org.mockito.Mock;
+import static org.mockito.BDDMockito.*;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
+import org.springframework.test.context.aot.DisabledInAotMode;
+import org.springframework.test.web.servlet.MockMvc;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+
+import java.time.LocalDate;
+
+@SpringBootTest
+@DisabledInAotMode
+@DisabledInNativeImage
+public class Owner2ControllerTests {
+	private static final int TEST_OWNER_ID = 1;
+
+	@Mock
+	private MockMvc mockMvc;
+
+	@MockBean
+	private OwnerRepository owners;
+
+	private Owner george() {
+		Owner george = new Owner();
+		george.setId(TEST_OWNER_ID);
+		george.setFirstName("George");
+		george.setLastName("Franklin");
+		george.setAddress("110 W. Liberty St.");
+		george.setCity("Madison");
+		george.setTelephone("6085551023");
+		Pet max = new Pet();
+		PetType dog = new PetType();
+		dog.setName("dog");
+		max.setType(dog);
+		max.setName("Max");
+		max.setBirthDate(LocalDate.now());
+		george.addPet(max);
+		max.setId(1);
+		return george;
+	};
+
+	@BeforeEach
+	void setup(){
+		Owner owner = george();
+		given(this.owners.findById(TEST_OWNER_ID))
+			.willReturn(owner);
+
+		Owner2Controller controller = new Owner2Controller(owners);
+		mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
+	}
+
+	@Test
+	void testOwnerById() throws Exception {
+		mockMvc.perform(get("/owners2/"+TEST_OWNER_ID)
+			.contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON))
+			.andDo(MockMvcResultHandlers.print())
+			.andExpect(status().isOk())
+		;
+	}
+}

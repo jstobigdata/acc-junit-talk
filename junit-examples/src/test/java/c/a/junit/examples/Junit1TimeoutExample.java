@@ -1,18 +1,11 @@
 package c.a.junit.examples;
 
 import org.junit.jupiter.api.*;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
-import static org.mockito.Mockito.*;
-
-class DataUtilsTest {
+class Junit1TimeoutExample {
 
     private DataUtils dataUtils;
     private Random random = new Random();

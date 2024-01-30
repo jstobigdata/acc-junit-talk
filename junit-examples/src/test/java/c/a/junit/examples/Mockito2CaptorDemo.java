@@ -11,7 +11,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.LinkedList;
 
 @ExtendWith(MockitoExtension.class)
-public class MockitoCaptorDemo {
+public class Mockito2CaptorDemo {
 
     @Mock
     LinkedList<Object> list;

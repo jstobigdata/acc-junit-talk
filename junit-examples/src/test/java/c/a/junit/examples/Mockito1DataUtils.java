@@ -6,18 +6,15 @@ import org.junit.jupiter.api.Test;
 
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
+
 import static org.mockito.Mockito.*;
 import org.mockito.MockitoAnnotations;
-import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.assertj.core.api.Assertions.*;
 
-import java.util.ArrayList;
-
 @ExtendWith(MockitoExtension.class)
-public class DataUtilsUsingMockito {
+public class Mockito1DataUtils {
     @Mock
     DataUtils dataUtils;
 
